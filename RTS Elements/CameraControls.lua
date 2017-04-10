@@ -6,6 +6,9 @@ function Script:Start()
 	self.mouseLight:SetRange(6)
 	self.mouseLight:SetColor(255,0,150)
 
+
+    self.pickradius = 0.5 
+
 end
 
 
@@ -60,8 +63,13 @@ function Script:UpdateWorld()
 		self.camPivot:SetPosition(-150, self.camPivot:GetPosition(true).y, self.camPivot:GetPosition(true).z)
 	end
 	
+	local pickinfo = PickInfo() 
+    if (self.entity:Pick(Win:GetMousePosition().x,Win:GetMousePosition().y,pickinfo,self.pickradius,true)) then
+        
+        self.mouseLight:SetPosition(pickinfo.position + Vec3(0,3,0))
+	end
 	
-	 self.mouseLight:SetPosition(Win:GetMousePosition().x/19, 1, -Win:GetMousePosition().y/10 + 20)
+	
 	 self.entity:SetPosition(self.camPivot:GetPosition(true))
 end
 
